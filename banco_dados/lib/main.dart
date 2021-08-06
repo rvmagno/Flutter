@@ -48,38 +48,78 @@ class _HomeState extends State<Home> {
   }
 
   _listarUsuarios () async {
+    print("\n\n\nlistarUsuarios");
 
     Database bd = await _recuperarBancoDados();
 
     List usuarios = await bd.rawQuery("select * from usuarios ");
 
     for(var usuario in usuarios){
-      print("usuario nome " + usuario['nome'] + " com " + usuario['idade'].toString() +" anos" );
+      print("usuario "+ usuario['id'].toString() +" nome " + usuario['nome'] + " com " + usuario['idade'].toString() +" anos" );
     }
 
     // print("### usuarios " + usuarios.toString());
   }
 
-  _listarUsuariosPorId (int id) async {
+  _listarUsuarioPorId (int id) async {
 
     Database bd = await _recuperarBancoDados();
 
-    List usuarios = await bd.rawQuery("select * from usuarios where id = " + id.toString());
+    List usuarios = await bd.query(
+        "usuarios",
+        columns: ["id", "nome", "idade"] ,
+        where: "id = ?",
+        whereArgs: [id]
+        // "select * from usuarios where id = " + id.toString()
+    );
 
     for(var usuario in usuarios){
-      print("_listarUsuariosPorId: nome " + usuario['nome'] + " com " + usuario['idade'].toString() +" anos" );
+      print("\n\n\n_listarUsuariosPorId: nome " + usuario['nome'] + " com " + usuario['idade'].toString() +" anos" );
     }
 
-    // print("### usuarios " + usuarios.toString());
   }
+
+  _excluirUsuarios(int id) async{
+    print("\nexcluirUsuarios");
+    Database bd = await _recuperarBancoDados();
+
+    bd.delete(
+      "usuarios",
+      where: "id = ?",
+      whereArgs: [id]
+    );
+
+  }
+
+  _atualizarNomeUsuario(int id, String nome) async{
+    print("\natualizarrUsuarios");
+    Database bd = await _recuperarBancoDados();
+
+    Map<String, dynamic> dadosUsuario = {
+      "nome": nome,
+    };
+
+    bd.update(
+      "usuarios",
+      dadosUsuario,
+      where: "id = ?",
+      whereArgs: [id]
+
+    );
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
 
     // _recuperarBancoDados();
     // _salvar();
+    _listarUsuarios();
+    // _excluirUsuarios(3);
     // _listarUsuarios();
-    _listarUsuariosPorId(3);
+    _atualizarNomeUsuario(1);
+    _listarUsuarios();
 
     return Container();
   }
