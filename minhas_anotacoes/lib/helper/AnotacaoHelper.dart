@@ -62,43 +62,11 @@ class AnotacaoHelper {
     var bancoDados = await db;
     String sql = "SELECT * FROM $tbAnotacao ORDER BY data DESC ";
     List anotacoes = await bancoDados.rawQuery(sql);
-
-/*
-    String gambiarra = "SELECT * FROM $tbAnotacao WHERE id <= 2 ORDER BY data DESC ";
-    List anotacoesGambiarra = await bancoDados.rawQuery(sql);
-
-
-
-    List<Anotacao>? tempList = <Anotacao>[];
-    for(var item in anotacoesGambiarra){
-      Anotacao nota = Anotacao.fromMap(item);
-      tempList.add(nota);
-    }
-
-    for(var nota in tempList){
-      print(nota.data);
-      nota.data = DateTime.now().toString();
-      print(nota.data);
-      await bancoDados.update(
-          tbAnotacao,
-          nota.toMap(),
-          where: "id = ?",
-          whereArgs: [nota.id]
-      );
-      print("\nnota.toString()");
-      print(nota.toString());
-
-    }
-
-    print ("\n\n\n\n\nfuncionou, carai");
-*/
-
-
     return anotacoes;
 
   }
 
-  atualizarAnotacao(Anotacao anotacao) async {
+  Future<int> atualizarAnotacao(Anotacao anotacao) async {
     var bancoDados = await db;
 
     return await bancoDados.update(
@@ -108,6 +76,16 @@ class AnotacaoHelper {
       whereArgs: [anotacao.id]
     );
 
+  }
+
+  Future<int> removerAnotacao(int? id) async{
+    var bancoDados = await db;
+
+    return await bancoDados.delete(
+      tbAnotacao,
+      where: "id = ?",
+      whereArgs: [id]
+    );
   }
 
 }
