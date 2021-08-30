@@ -32,8 +32,17 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
-        title: Text("Amigos 1980"),
+        title: Center(
+          child: Text("Amigos 1980"),
+        ),
         bottom: TabBar(
+          indicatorColor: Colors.yellow,
+          labelStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.yellow
+          ),
+          labelColor: Colors.yellow,
           controller: _tabController,
           tabs: [
             Tab(
