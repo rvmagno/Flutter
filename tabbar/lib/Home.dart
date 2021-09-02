@@ -32,7 +32,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Abas"),
+        title: Center(child: Text("Abas")),
         bottom: TabBar(
           indicatorColor: Colors.white,
           labelStyle: TextStyle(
@@ -43,15 +43,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           controller: _tabController,
           tabs: [
             Tab(
-              text: "Home",
+              text: "Bichos",
               icon: Icon(Icons.home_outlined),
             ),
             Tab(
-              text: "Email",
+              text: "Numeros",
               icon: Icon(Icons.email_outlined),
             ),
             Tab(
-              text: "Conta",
+              text: "Vogais",
               icon: Icon(Icons.account_circle_outlined),
             ),
 
