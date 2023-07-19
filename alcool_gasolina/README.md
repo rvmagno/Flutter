@@ -1,6 +1,6 @@
 # alcool_gasolina
 
-A new Flutter application.
+Um projeto para testar se vale a pena abastecer com alcool OU gasolina
 
 ## Getting Started
 
